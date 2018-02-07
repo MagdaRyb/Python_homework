@@ -19,10 +19,13 @@ for line in valid_lines:
     # preparing information
     line = line.replace(',', '')
     line_splitted = re.split('\s+', line)
-    if line_splitted[-7] == line_splitted[0]:
-        protocol = protocols[line_splitted[0]]
-    else:
-        protocol = protocols[line_splitted[0]] + protocols[line_splitted[1]]
+    try:
+        if line_splitted[-7] == line_splitted[0]:
+            protocol = protocols[line_splitted[0]]
+        else:
+            protocol = protocols[line_splitted[0]] + protocols[line_splitted[1]]
+    except KeyError:
+        protocol = "UNKNOWN"
     prefix = line_splitted[-6]
     metric = line_splitted[-5][1:-1]
     next_hop = line_splitted[-3]
